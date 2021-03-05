@@ -1,0 +1,15 @@
+.retourApi
+{
+  margin: 0 auto;
+}
+
+.left
+{
+  float : left;
+}
+
+.right
+{
+  float : right;
+  margin: 20px;
+}

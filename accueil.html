@@ -2,3 +2,30 @@
 <html lang="fr" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <title>Accueil</title>
+    <link rel="stylesheet" href="styleAccueil.css"
+  </head>
+  <body>
+    <button>Noter un pays</button>
+    <center><h1>ToutSurLeVoyage.com</h1></center>
+
+    <form id="formulaireVoyage" method="post">
+      <label>Saisir un pays de départ :</label><input type="text" id="paysDepart"/></br>
+      <label>Saisir un pays d'arrivé :</label><input type="text" id="paysArrive"/>
+    </form>
+    <label> Saisir une date : </label>
+    <input type="date" name="date" max="2021-12-31"/>
+
+    <div class = "retourApis">
+      <div class = "left">
+        <label>Les différents billets d'avions : </label></br>
+        <input type="text" class="retourApi" name="billetAvions" value=""/>
+      </div>
+
+      <div class = "right">
+        <label>Informations sur la destination :</label></br>
+        <input type="text" class="retourApi" name="infosDestinations" value=""/>
+      </div>
+    </div>
+  </body>
+</html>
