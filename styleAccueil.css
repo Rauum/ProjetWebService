@@ -1,17 +1,22 @@
-.retourApi
+.container
 {
+  height:313px;
   margin: 0 auto;
 }
 
 .left
 {
   float : left;
+  width:471px;
+	height:313px;
+	margin-left:0px;
 }
 
 .right
 {
-  float : right;
-  margin: 20px;
+  width:471px;
+	height:313px;
+	margin-left:500px;
 }
 
 .bouton {
@@ -30,4 +35,11 @@ color: #ffffff !important;
 background: #f6b93b;
 border-color: #f6b93b !important;
 transition: all 0.4s ease 0s;
+}
+
+fieldset
+{
+  border-color: #000000 !important;
+  max-width:550px;
+  padding:16px;
 }
