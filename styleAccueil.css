@@ -7,17 +7,13 @@
 .left
 {
   float : left;
-  width:471px;
-	height:313px;
 	margin-left:0px;
 }
 
 .right
 {
-	float : left;
-  width:471px;
-	height:313px;
-	margin-left:500px;
+	float : right;
+	margin-right:50px;
 }
 
 .bouton {
@@ -49,4 +45,59 @@ fieldset
 {
 	width: 30px;
 	height: 30px;
+}
+
+body
+{
+    background-image: url(https://i.pinimg.com/originals/75/2f/76/752f763a3e96b47c00303238704c4007.jpg) ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: black; /* Le texte de la page sera blanc */
+}
+
+h1
+{
+    background-color : #A9A9A9;
+    border : 1px solid white;
+    color : white;
+    padding : 3px 8px;
+    width : 50%;
+    margin-top : 25px;
+    font-size: 75px;
+}
+
+label{
+    display: inline-block;
+    float: center;
+    clear: left;
+    width: 300px;
+    text-align: right;
+}
+
+.rating label{
+    display: inline-block;
+    float: center;
+    clear: left;
+    width: 50px;
+    text-align: right;
+}
+
+input {
+  display: inline-block;
+  float: center;
+}
+
+fieldset
+{
+  background-color:#CCC;
+  max-width:550px;
+  padding:16px;
+
+}
+
+textarea {
+  height: 200px;
+  width: 500px;
+  margin-left: 50px;
+
 }
