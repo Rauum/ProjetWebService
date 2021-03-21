@@ -1,39 +1,181 @@
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Accueil</title>
-    <link rel="stylesheet" href="styleAccueil.css">
-    <center><h1>ToutSurLeVoyage.com</h1></center>
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title>Page accueil</title>
+  <link rel="stylesheet" href="styleAccueil.css">
+  <center><h1>ToutSurLeVoyage.com</h1></center>
+</head>
 
-    <a class="bouton" href="note.html" rel="nofollow noopener">Noter un pays</a>
+<script type="text/javascript">
 
-<center>
+var villeDepart;
+var villeArrive;
+
+function afficherVol(){
+  var urlVilleDepart="https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/UK/GBP/en-GB/?query=";
+  var nomVilleDepart=document.getElementById("villeDepart").value;
+  var urlVilleDepart = urlVilleDepart+nomVilleDepart;
+  fetch(urlVilleDepart, {
+    "method": "GET",
+    "headers": {
+      "x-rapidapi-key": "7dfc78d58cmsh4b2ae0d28e1c0a5p1b56fbjsn5246cf777443",
+      "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"
+    }
+  })
+  .then(response => {
+    console.log(response);
+    return response.json()
+  })
+  .then(data => {
+    // Work with JSON data here
+    console.log(data)
+    villeDepart=data.Places[0].PlaceId;
+
+    var urlVilleArrivee="https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/UK/GBP/en-GB/?query=";
+    var nomVilleArrive=document.getElementById("villeArrive").value;
+    var urlVilleArrivee = urlVilleArrivee+nomVilleArrive;
+    fetch(urlVilleArrivee, {
+      "method": "GET",
+      "headers": {
+        "x-rapidapi-key": "7dfc78d58cmsh4b2ae0d28e1c0a5p1b56fbjsn5246cf777443",
+        "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"
+      }
+    })
+    .then(response => {
+      console.log(response);
+      return response.json()
+    })
+    .then(data => {
+      console.log(data)
+      villeArrive=data.Places[0].PlaceId;
+      var dateDepart=document.getElementById("date").value;
+      var urlFinale="https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/FR/EUR/en-FR/";
+      urlFinale= urlFinale+villeDepart+"/"+villeArrive+"/"+dateDepart+"?inboundpartialdate=";
+      fetch(urlFinale, {
+        "method": "GET",
+        "headers": {
+          "x-rapidapi-key": "7dfc78d58cmsh4b2ae0d28e1c0a5p1b56fbjsn5246cf777443",
+          "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"
+        }
+      })
+      .then(response => {
+        console.log(response);
+        return response.json()
+      })
+      .then(data => {
+        console.log(data)
+        if ( data.Quotes == ""){
+          document.getElementById("resultatVol").innerHTML="Pas de résultat";
+        }
+        else {
+          document.getElementById("resultatVol").innerHTML="Vous avez cherché un voyage entre "+nomVilleDepart+" et "+nomVilleArrive+ " le "+data.Quotes[0].OutboundLeg.DepartureDate+"."+
+          " <br><br> Ce vol a un prix de "+ data.Quotes[0].MinPrice+"€."+" Il se déroule avec la compagnie "+data.Carriers[0].Name+".";
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+
+    })
+    .catch(err => {
+
+      console.error(err);
+    });
+  })
+  .catch(err => {
+    console.error(err);
+  });
+}
+
+function afficherDetailsPays(){
+  document.getElementById("infoPays").innerHTML="Pas de commentaires";
+  var nomPaysArrive=document.getElementById("paysArrive").value;
+
+  var urlCaractéristiquesPays="https://restcountries-v1.p.rapidapi.com/name/"+nomPaysArrive;
+  fetch(urlCaractéristiquesPays, {
+    "method": "GET",
+    "headers": {
+      "x-rapidapi-key": "7dfc78d58cmsh4b2ae0d28e1c0a5p1b56fbjsn5246cf777443",
+      "x-rapidapi-host": "restcountries-v1.p.rapidapi.com"
+    }
+  })
+  .then(response => {
+    console.log(response);
+    return response.json()
+  })
+  .then(data => {
+    console.log(data)
+    document.getElementById("infoPays").innerHTML="<center>"+data[0].name+"<br>"+
+    "Nombre d'habitants : "+data[0].population+" habitants <br>"+
+    "Continent : "+data[0].region+"<br>"+
+    "Capital : "+data[0].capital+"<br>"+
+    "Monnaie : "+data[0].currencies[0]+"<br>";
+    ;
+  })
+  .catch(err => {
+    console.error(err);
+  });
+}
+
+function recuperCommentaire(){
+  
+  document.getElementById("resultatCommentaire").innerHTML="Pas de resultats";
+  var nomPaysArrive=document.getElementById("paysArrive").value;
+  var urlCommentaire="http://iparla.iutbayonne.univ-pau.fr/~rvache001/S4/projet/apiNotesPays.php/?pays="+nomPaysArrive;
+  fetch(urlCommentaire, {
+    "method": "GET",
+    "headers": {
+    }
+  })
+  .then(response => {
+    console.log(response);
+    return response.json()
+  })
+  .then(data => {
+    console.log(data)
+    document.getElementById("resultatCommentaire").innerHTML=data[0].Pseudo+" : "+data[0].Commentaire+"<br> Note donnée par l'utilisateur : "+data[0].Note+"⭐/5⭐";
+  })
+  .catch(err => {
+    console.error(err);
+  });
+
+}
+
+function recupererIdPays() {
+
+  afficherVol();
+  afficherDetailsPays();
+  recuperCommentaire();
+
+}
+
+</script>
+<body>
+  <a class="bouton" href="note.html" rel="nofollow noopener">Noter un pays</a>
+
+  <center>
     <fieldset>
-    <form id="formulaireVoyage" method="post">
-      <label>Saisir un pays de départ : </label><input type="text" id="paysDepart"/><br><br>
-      <label>Saisir un pays d'arrivé : </label><input type="text" id="paysArrive"/><br><br>
-    <label> Saisir une date : </label>
-    <input type="date" name="date" max="2021-12-31"/><br><br>
-	<button name="rechercher" type="submit" ><img src="loupe.png" id="imageLoupe"></button>
+      <form name="formulaireVoyage" id="formulaireVoyage">
+        <label>Saisir une ville de départ : </label><input type="text" id="villeDepart" /><br><br>
+        <label>Saisir une ville d'arrivé : </label><input type="text" id="villeArrive"/><br><br>
+        <label>Saisir le pays d'arrivé : (En anglais)</label><input type="text" id="paysArrive" /><br><br>
+        <label> Saisir une date : </label>
+        <input type="date" name="date" id="date" max="2029-12-31"/><br><br>
+        <button name="valider" type="button" onclick="recupererIdPays()"><img src="loupe.png" id="imageLoupe"></button>
 
-</form>
-</fieldset><br><br>
-</center>
-    <center>
-	<div class = "container">
-      <div class = "left">
-        <label style="color:white">Les différents billets d'avions : </label><br><br>
-        <textarea></textarea>
-      </div>
+      </form>
 
-      <div class = "right">
-        <label style="color:white">Informations sur la destination :</label><br><br>
-        <textarea></textarea>
-      </div>
-	  </div>
-	 </center>
-  </body>
+    </fieldset><br><br>
+  </center>
+  <div class = "left"><label style="color:black">Informations sur la destination :</label></fieldset>
+    <p id="infoPays"></p></div>
+
+  <div class = "right"><label style="color:black">Le premier billet d'avion :</label>
+    <p id="resultatVol"></p></div>
+
+  <div class = "commentaire"><label style="color:black">Un commentaire sur le pays : </label>
+    <p id="resultatCommentaire"></p>
+  </div>
+</body>
 </html>

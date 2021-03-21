@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="styleDocumentation.css" rel="stylesheet" type="text/css">
+  <meta charset="utf-8" />
+  <title>Page documentation</title>
+  <center><h1>ToutSurLeVoyage.com</h1></center>
+  <center><h2>Documentation API</h2></center>
+
+</head>
+
+<body>
+  <div class="button_cont">
+    <a class="bouton" href="note.html" rel="nofollow noopener">Retour</a>
+  </div>
+  <center>
+    <fieldset>
+      <p>Description: Nous avons créer une API qui resence les commentaires, les notes et les durée des séjours dans un Pays.
+        Ces données ont étaient saisie par nos utilisateur. Création de Oihan Marraud et Romain VACHÉ</p>
+      </fieldset><br>
+      <fieldset>
+        <p>Lien général: http://iparla.iutbayonne.univ-pau.fr/~rvache001/S4/projet/apiNotesPays.php/</p>
+        <p>Ce lien vous permet d'acceder à toutes les données saisie par nos utilisateurs.</p>
+      </fieldset><br>
+      <fieldset>
+        <p>Vous pouvez trié les données par pays, note ou bien durée de séjour. Exemple de lien :</p>
+        <p>http://iparla.iutbayonne.univ-pau.fr/~rvache001/S4/projet/apiNotesPays.php/?pays=France</p>
+        <p>http://iparla.iutbayonne.univ-pau.fr/~rvache001/S4/projet/apiNotesPays.php/?note=5</p>
+        <p>http://iparla.iutbayonne.univ-pau.fr/~rvache001/S4/projet/apiNotesPays.php/?tempsSejour=10</p>
+      </fieldset><br>
+      <fieldset>
+        <p>Voici, pour compléter la documentation, un exemple de code javascript fetch qui utilise notre API :</p>
+        <p>
+          fetch(http://iparla.iutbayonne.univ-pau.fr/~rvache001/S4/projet/apiNotesPays.php/?pays=Australia, {
+            <br>"method": "GET",
+            <br>"headers": {
+              <br>}
+              <br>})
+              <br>.then(response => {
+                <br>console.log(response);
+                <br>return response.json()
+                <br>  })
+                <br>.catch(err => {
+                  <br>console.error(err);
+                  <br>});
+                </p>
+
+              </fieldset>
+            </center>
+
+
+          </body>
+          </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link href="style.css" rel="stylesheet" type="text/css">
+  <link href="styleNote.css" rel="stylesheet" type="text/css">
   <meta charset="utf-8" />
   <title>Page note</title>
   <center><h1>ToutSurLeVoyage.com</h1></center>
@@ -12,34 +12,40 @@
   <div class="button_cont">
     <a class="bouton" href="accueil.html" rel="nofollow noopener">Retour</a>
   </div>
+  <div class="button_cont">
+    <a class="bouton" href="documentation.html" rel="nofollow noopener">Docuemtation API</a>
+  </div>
   <center>
-      <fieldset>
-      <form action="" method="post">
+    <fieldset>
+      <form action="notes.php" method="post">
+        
         <label for="pseudo">Pseudo :</label>
-        <input class="saisie" type="text" name="name" id="name" required><br><br>
+        <input class="saisie" type="text" name="pseudo" id="pseudo" required><br><br>
 
-        <label for="pays">Saisir un pays :</label>
+        <label for="pays">Saisir un pays : (En anglais)</label>
         <input class="saisie" type="text" name="pays" id="pays" required><br><br>
 
         <label for="commentaire">Saisir un commentaire :</label>
         <input class="saisie" type="textarea" name="commentaire" id="commentaire" required><br><br>
 
         <label for="tempsSejour">Temps du séjour :</label>
-        <input class="saisie" type="text" name="tempsSejour" id="tempsSejour" required><br><br>
+        <input class="saisie" type="number" name="tempsSejour" id="tempsSejour" required><br><br>
 
-        <div class="rating">
-      <a href="#5" title="Donner 5 étoiles">☆</a>
-      <a href="#4" title="Donner 4 étoiles">☆</a>
-      <a href="#3" title="Donner 3 étoiles">☆</a>
-      <a href="#2" title="Donner 2 étoiles">☆</a>
-      <a href="#1" title="Donner 1 étoile">☆</a>
-      <label for="noteGenerale">: Note générale </label>
 
-      </div><br><br>
-        <button  class="bouton" type="submit" target="_blank" rel="nofollow noopener">Envoyer</button>
+        <input type="radio" id="note" name="note" value="1"><a>⭐</a>
+        <input type="radio" id="note" name="note" value="2"><a>⭐</a>
+        <input type="radio" id="note" name="note" value="3"><a>⭐</a>
+        <input type="radio" id="note" name="note" value="4"><a>⭐</a>
+        <input type="radio" id="note" name="note" value="5"><a>⭐</a>
 
-      </form>
-            </fieldset>
-            </center>
+      </div>
+    </div><br><br>
+    <button  class="bouton" type="submit" target="_blank" rel="nofollow noopener">Envoyer</button>
+
+  </form>
+</fieldset>
+</center>
+
+
 </body>
 </html>
