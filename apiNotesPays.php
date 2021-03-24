@@ -44,10 +44,14 @@ elseif (isset($_GET["tempsSejour"])){
     "Note"=>$row['Note']);
   }
 }
-  $monTableauToutBeauEnJson = json_encode($monTableauToutBeau);
-
+  if (empty($monTableauToutBeau)){
+      echo json_encode("Aucun commentaire trouve pour cette recherche");
+  }
+  else {
   echo json_encode($monTableauToutBeau);
 }
+}
+
 catch(PDOException $e){
   echo 'Impossible de traiter les données. Erreur : '.$e->getMessage();
 }

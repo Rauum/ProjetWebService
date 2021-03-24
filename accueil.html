@@ -66,7 +66,7 @@ function afficherVol(){
       .then(data => {
         console.log(data)
         if ( data.Quotes == ""){
-          document.getElementById("resultatVol").innerHTML="Pas de résultat";
+          document.getElementById("resultatVol").innerHTML="Pas de vol proposé pour le moment pour ce trajet";
         }
         else {
           document.getElementById("resultatVol").innerHTML="Vous avez cherché un voyage entre "+nomVilleDepart+" et "+nomVilleArrive+ " le "+data.Quotes[0].OutboundLeg.DepartureDate+"."+
@@ -89,7 +89,7 @@ function afficherVol(){
 }
 
 function afficherDetailsPays(){
-  document.getElementById("infoPays").innerHTML="Pas de commentaires";
+  document.getElementById("infoPays").innerHTML="Ce pays n'existe pas";
   var nomPaysArrive=document.getElementById("paysArrive").value;
 
   var urlCaractéristiquesPays="https://restcountries-v1.p.rapidapi.com/name/"+nomPaysArrive;
@@ -119,8 +119,7 @@ function afficherDetailsPays(){
 }
 
 function recuperCommentaire(){
-  
-  document.getElementById("resultatCommentaire").innerHTML="Pas de resultats";
+
   var nomPaysArrive=document.getElementById("paysArrive").value;
   var urlCommentaire="http://iparla.iutbayonne.univ-pau.fr/~rvache001/S4/projet/apiNotesPays.php/?pays="+nomPaysArrive;
   fetch(urlCommentaire, {
@@ -134,7 +133,14 @@ function recuperCommentaire(){
   })
   .then(data => {
     console.log(data)
-    document.getElementById("resultatCommentaire").innerHTML=data[0].Pseudo+" : "+data[0].Commentaire+"<br> Note donnée par l'utilisateur : "+data[0].Note+"⭐/5⭐";
+    var nbCommentaires = data.length;
+    var numeroCommentaire = Math.floor(Math.random() * Math.floor(nbCommentaires));
+    if (data == "Aucun commentaire trouve pour cette recherche") {
+      document.getElementById("resultatCommentaire").innerHTML= "Pas de commentaires disponibles."
+    }
+    else {
+      document.getElementById("resultatCommentaire").innerHTML=data[numeroCommentaire].Pseudo+" : "+data[numeroCommentaire].Commentaire+"<br> Note donnée par l'utilisateur : "+data[numeroCommentaire].Note+"⭐/5⭐";
+    }
   })
   .catch(err => {
     console.error(err);
@@ -147,7 +153,11 @@ function recupererIdPays() {
   afficherVol();
   afficherDetailsPays();
   recuperCommentaire();
+}
 
+function rechargercommentaire()
+{
+  recuperCommentaire();
 }
 
 </script>
@@ -158,7 +168,7 @@ function recupererIdPays() {
     <fieldset>
       <form name="formulaireVoyage" id="formulaireVoyage">
         <label>Saisir une ville de départ : </label><input type="text" id="villeDepart" /><br><br>
-        <label>Saisir une ville d'arrivé : </label><input type="text" id="villeArrive"/><br><br>
+        <label>Saisir une ville d'arrivée : </label><input type="text" id="villeArrive"/><br><br>
         <label>Saisir le pays d'arrivé : (En anglais)</label><input type="text" id="paysArrive" /><br><br>
         <label> Saisir une date : </label>
         <input type="date" name="date" id="date" max="2029-12-31"/><br><br>
@@ -171,11 +181,15 @@ function recupererIdPays() {
   <div class = "left"><label style="color:black">Informations sur la destination :</label></fieldset>
     <p id="infoPays"></p></div>
 
-  <div class = "right"><label style="color:black">Le premier billet d'avion :</label>
-    <p id="resultatVol"></p></div>
+    <div class = "right"><label style="color:black">Le premier billet d'avion :</label>
+      <p id="resultatVol"></p></div>
 
-  <div class = "commentaire"><label style="color:black">Un commentaire sur le pays : </label>
-    <p id="resultatCommentaire"></p>
-  </div>
-</body>
-</html>
+      <div class = "commentaire"><label style="color:black">Un commentaire sur le pays :
+        <button class="boutonRecharger" type="button" onclick="rechargercommentaire()"><img src="recharger.png" id="recharger"></button>
+      </label>
+      <p id="resultatCommentaire"></p>
+
+
+    </div>
+  </body>
+  </html>
